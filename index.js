@@ -3,11 +3,11 @@ const axios = require("axios");
 
 const app = express();
 
-app.listen(3000, () => {
-  console.log("Servidor iniciado en puerto 3000...");
+app.get("/", (req, res) => {
+  res.send("<h1>Hola mundo!</h1>");
 });
 
-app.get("/posts/:idUsuario", async (req, res) => {
+app.get("/postsComments/:idUsuario", async (req, res) => {
   try {
     const idUsuario = req.params.idUsuario;
 
@@ -17,7 +17,8 @@ app.get("/posts/:idUsuario", async (req, res) => {
     );
     // obtiene solo los post de un usuario en especifico.
     const postsUser = postsAll.data.filter((post) => post.userId == idUsuario);
-    // Obtiene todos los commentarios del api
+
+    // Obtiene todos los comentarios del api
     const commentsAll = await axios.get(
       "https://jsonplaceholder.typicode.com/comments"
     );
@@ -27,10 +28,16 @@ app.get("/posts/:idUsuario", async (req, res) => {
       comments: commentsAll.data.filter((comment) => comment.postId == post.id), // Obtiene los comentarios de un post de un usuario
     }));
 
-    // console.log(commentsUser);
-    // console.log(commentsUser);
     res.send(commentsUser);
   } catch (error) {
     console.error(error);
   }
 });
+
+app.listen(3000);
+
+// app.listen(3000, () => {
+//   console.log("Servidor iniciado en puerto 3000...");
+// });
+
+module.exports = app;

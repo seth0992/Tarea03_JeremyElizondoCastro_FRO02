@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "test": "jest --watchAll --coverage",
-    "clear_jest": "jest --clearCache"
+    "clearJest": "jest --clearCache"
   },
   "repository": {
     "type": "git",
