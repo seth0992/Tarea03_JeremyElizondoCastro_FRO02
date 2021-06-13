@@ -3,10 +3,6 @@ const axios = require("axios");
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("<h1>Hola mundo!</h1>");
-});
-
 app.get("/postsComments/:idUsuario", async (req, res) => {
   try {
     const idUsuario = req.params.idUsuario;
@@ -15,6 +11,7 @@ app.get("/postsComments/:idUsuario", async (req, res) => {
     const postsAll = await axios.get(
       "https://jsonplaceholder.typicode.com/posts"
     );
+
     // obtiene solo los post de un usuario en especifico.
     const postsUser = postsAll.data.filter((post) => post.userId == idUsuario);
 
